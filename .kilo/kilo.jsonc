@@ -1,0 +1,16 @@
+{
+  "$schema": "https://kilo.ai",
+  "mcp": {
+     "@21st-dev/magic": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic@latest",
+        "API_KEY=\"4e11fea0ff6eaa62a1bfbf0a6138197c3ff8733770145d35e7bf030a285ac04a\""
+      ]
+    }
+  },
+  "permission": {
+    "bash": "allow"
+  }
+}

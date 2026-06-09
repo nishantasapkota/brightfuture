@@ -1,0 +1,137 @@
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { notFound } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { getServiceBySlug, getServices } from "@/lib/db-utils"
+import { createPageMetadata } from "@/lib/seo"
+import { buildBreadcrumbJsonLd } from "@/lib/structured-data"
+import type { Metadata } from "next"
+
+export const dynamic = "force-dynamic"
+
+interface ServiceDetailPageProps {
+  params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: ServiceDetailPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const service = await getServiceBySlug(slug)
+  if (!service) {
+    return createPageMetadata({ title: "Service not found", description: "The requested service page could not be found.", path: `/services/${slug}`, noIndex: true })
+  }
+  return createPageMetadata({
+    title: service.metaTitle || service.name,
+    description: service.metaDescription || service.shortDescription || service.name,
+    path: `/services/${service.slug}`,
+    noIndex: service.status !== "active",
+    images: service.icon ? [{ url: service.icon, width: 1200, height: 630, alt: service.name }] : undefined,
+  })
+}
+
+export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
+  const { slug } = await params
+  let service = null
+  let allServices: any[] = []
+
+  try { service = await getServiceBySlug(slug) } catch (error) { console.error("Failed to fetch service:", error); notFound() }
+  if (!service || service.status !== "active") notFound()
+
+  try { allServices = (await getServices(100)).filter((item) => item.status === "active") } catch (error) { console.error("Failed to fetch services for sidebar:", error) }
+
+  const sidebarItems = allServices.filter((item) => item.slug !== slug).map((item) => ({ title: item.name, href: `/services/${item.slug}` }))
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.name, path: `/services/${service.slug}` }])
+
+  return (
+    <div className="bg-white min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+
+      {/* Hero */}
+      <section className="relative min-h-[460px] flex items-end overflow-hidden bg-[#020617] pt-32 pb-16">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(145deg,#020617_0%,#0a1033_50%,#111827_100%)]" />
+          <div className="absolute inset-0 opacity-[0.02] [background-image:linear-gradient(135deg,rgba(255,255,255,0.3)_1px,transparent_1px)] [background-size:40px_40px]" />
+          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-red-600/12 blur-[120px] animate-pulse" />
+          <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-blue-600/10 blur-[100px] animate-pulse" style={{ animationDelay: "2s" }} />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.95),rgba(2,6,23,0.7)_60%,transparent)]" />
+        </div>
+
+        <div className="container relative z-20">
+          <Link href="/services" className="inline-flex items-center gap-2 text-red-400 font-bold uppercase tracking-[0.15em] text-[11px] mb-6 hover:text-white transition-colors">
+            <ArrowRight className="w-3.5 h-3.5 rotate-180" /> Our Services
+          </Link>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 tracking-tight leading-[1.05]">{service.name}</h1>
+          <p className="text-white/55 text-base md:text-lg font-medium max-w-2xl leading-relaxed">{service.shortDescription}</p>
+          <div className="mt-6 flex items-center gap-4">
+            <div className="h-px w-8 bg-red-500/40" />
+            <div className="h-1 w-1 rounded-full bg-red-500/40" />
+          </div>
+        </div>
+      </section>
+
+      <div className="container py-20 md:py-24">
+        <div className="grid lg:grid-cols-[1fr_380px] gap-16">
+          <div className="space-y-12">
+            {service.icon && (
+              <div className="relative h-[360px] md:h-[420px] w-full rounded-2xl overflow-hidden shadow-xl shadow-slate-900/5 group">
+                <Image src={service.icon} alt={service.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 60vw, 100vw" />
+              </div>
+            )}
+
+            <div className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-500 prose-li:text-slate-500 prose-strong:text-slate-900">
+              <h2 className="text-2xl font-bold mb-5">Service Overview</h2>
+              <div dangerouslySetInnerHTML={{ __html: service.description }} />
+            </div>
+
+            {service.features && service.features.length > 0 && (
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-slate-900">What we provide</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {service.features.map((feature: string, idx: number) => (
+                    <div key={idx} className="flex items-start gap-3.5 p-5 rounded-2xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-lg hover:border-slate-200 transition-all">
+                      <div className="p-1.5 rounded-lg bg-red-50 text-red-600 flex-shrink-0 mt-0.5">
+                        <CheckCircle2 className="w-4 h-4" />
+                      </div>
+                      <span className="font-medium text-slate-700 text-sm leading-relaxed">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-8">
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 sticky top-28">
+              <h3 className="text-base font-bold text-slate-900 mb-5 flex items-center gap-2">
+                <div className="w-1.5 h-5 bg-red-600 rounded-full" />
+                Other Services
+              </h3>
+              <div className="space-y-2">
+                {sidebarItems.map((item, idx) => (
+                  <Link key={idx} href={item.href} className="flex justify-between items-center p-3.5 rounded-xl bg-white border border-transparent hover:border-red-100 hover:shadow-sm transition-all group"
+                  >
+                    <span className="font-semibold text-slate-600 text-sm group-hover:text-red-600 transition-colors">{item.title}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-red-600 transition-all group-hover:translate-x-0.5" />
+                  </Link>
+                ))}
+              </div>
+
+              <div className="mt-8 p-6 rounded-2xl bg-[#020617] text-white relative overflow-hidden">
+                <div className="absolute top-[-20%] right-[-10%] w-32 h-32 bg-red-600/15 rounded-full blur-2xl" />
+                <div className="relative z-10 space-y-4">
+                  <h4 className="text-base font-bold">Need Help?</h4>
+                  <p className="text-sm text-white/45 font-medium">Contact our experts for specialized advice on your global journey.</p>
+                  <Link href="/contact">
+                    <Button className="w-full bg-red-600 hover:bg-red-500 text-white h-12 rounded-xl text-[13px] font-bold shadow-lg shadow-red-600/15 transition-all">
+                      GET IN TOUCH
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
