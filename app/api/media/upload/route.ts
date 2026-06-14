@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       const signedForm = new FormData()
       signedForm.append("file", file, file.name)
       const timestamp = Math.floor(Date.now() / 1000).toString()
-      const folder = folderFromEnv || "optimus/media"
+      const folder = folderFromEnv || "brightfuture/media"
       const signature = createCloudinarySignature({ folder, timestamp }, signedConfig!.apiSecret)
 
       signedForm.append("api_key", signedConfig!.apiKey)

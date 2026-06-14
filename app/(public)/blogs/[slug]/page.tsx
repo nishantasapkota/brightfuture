@@ -4,8 +4,10 @@ import { absoluteUrl, buildSeoDescription, cleanText, createPageMetadata, getSha
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
+import { Calendar, Clock, ArrowRight, Tag, User } from "lucide-react"
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic"
 
 interface BlogDetailPageProps {
   params: Promise<{ slug: string }>
@@ -51,6 +53,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   const sidebarItems = recentBlogs.filter(b => b.slug !== slug).map(b => ({ title: b.title, href: `/blogs/${b.slug}`, active: false }))
 
+  const readTime = Math.max(1, Math.ceil((blog.content || "").split(/\s+/).length / 200))
+
   return (
     <DetailLayout
       title={blog.title}
@@ -59,33 +63,70 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
       sidebarItems={sidebarItems}
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="space-y-8">
-        {blog.featuredImage && (
-          <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-100 shadow-sm">
-            <Image src={blog.featuredImage} alt={blog.title} fill className="object-cover" priority />
-          </div>
+
+      {/* Meta bar */}
+      <div className="mb-8 flex flex-wrap items-center gap-4 text-sm text-slate-400 pb-6 border-b border-slate-100">
+        <span className="inline-flex items-center gap-1.5">
+          <Calendar className="h-3.5 w-3.5 text-red-500" />
+          <span className="font-medium text-slate-600">
+            {new Date(blog.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </span>
+        </span>
+        {blog.author && (
+          <>
+            <span className="text-slate-300">|</span>
+            <span className="inline-flex items-center gap-1.5">
+              <User className="h-3.5 w-3.5 text-red-500" />
+              <span className="font-medium text-slate-600">{blog.author}</span>
+            </span>
+          </>
         )}
+        <span className="text-slate-300">|</span>
+        <span className="inline-flex items-center gap-1.5">
+          <Clock className="h-3.5 w-3.5 text-red-500" />
+          <span className="font-medium text-slate-600">{readTime} min read</span>
+        </span>
+      </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 text-sm text-slate-400 pb-6 border-b border-slate-100">
-            <span className="font-medium">{new Date(blog.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            {blog.author && <><span>•</span><span className="font-medium">By {blog.author}</span></>}
-          </div>
-
-          <div className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-500 prose-li:text-slate-500 prose-strong:text-slate-900 prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-          />
-
-          {blog.tags && blog.tags.length > 0 && (
-            <div className="pt-6 border-t border-slate-100">
-              <div className="flex flex-wrap gap-2">
-                {blog.tags.map((tag: string, idx: number) => (
-                  <span key={idx} className="bg-slate-50 text-slate-500 border border-slate-100 px-3 py-1.5 rounded-full text-xs font-medium">#{tag}</span>
-                ))}
-              </div>
-            </div>
-          )}
+      {/* Featured Image */}
+      {blog.featuredImage && (
+        <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-100 shadow-lg mb-10">
+          <Image src={blog.featuredImage} alt={blog.title} fill className="object-cover" priority />
         </div>
+      )}
+
+      {/* Article Body */}
+      <div className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-li:text-slate-600 prose-strong:text-slate-900 prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-red-500 prose-blockquote:bg-red-50/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-img:rounded-xl prose-img:shadow-md">
+        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+      </div>
+
+      {/* Tags */}
+      {blog.tags && blog.tags.length > 0 && (
+        <div className="pt-8 mt-8 border-t border-slate-100">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Tags</span>
+            {blog.tags.map((tag: string, idx: number) => (
+              <span
+                key={idx}
+                className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 border border-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600 hover:border-red-200 hover:text-red-600 transition-colors"
+              >
+                <Tag className="h-3 w-3" />
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Next/Prev navigation */}
+      <div className="pt-10 mt-10 border-t border-slate-100">
+        <Link
+          href="/blogs"
+          className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-6 py-3 text-xs font-bold uppercase tracking-widest text-white hover:bg-slate-800 transition-colors"
+        >
+          <ArrowRight className="h-4 w-4 rotate-180" />
+          Back to all articles
+        </Link>
       </div>
     </DetailLayout>
   )

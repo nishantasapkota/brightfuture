@@ -29,7 +29,7 @@ export function buildSitewideJsonLd(details?: BusinessDetails | null) {
     url: absoluteUrl("/"),
     logo: absoluteUrl(details?.logo || "/placeholder-logo.png"),
     description:
-      "Optimus Global provides study abroad counselling, admissions support, visa guidance, and education consulting for international students.",
+      "Bright Future Edu provides study abroad counselling, admissions support, visa guidance, and education consulting for international students.",
     telephone: phones[0] ? sanitizePhone(phones[0]) : undefined,
     email: emails[0],
     sameAs: sameAs.length > 0 ? sameAs : undefined,

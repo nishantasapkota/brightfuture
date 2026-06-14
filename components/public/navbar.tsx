@@ -23,7 +23,6 @@ export function Navbar({ details, businessName, firstName }: NavbarProps) {
     { name: "About", href: "/about-us" },
     { name: "Services", href: "/services" },
     { name: "Courses", href: "/courses" },
-    { name: "Counselling", href: "/online-consultation" },
     { name: "Stories", href: "/success-stories" },
     { name: "Blogs", href: "/blogs" },
     { name: "Contact", href: "/contact" },

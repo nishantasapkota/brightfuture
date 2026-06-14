@@ -52,7 +52,7 @@ export function CtaJourney({ content }: { content?: CtaJourneyContent }) {
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
-            <Link href="/online-consultation">
+            <Link href="/contact">
               <Button variant="outline" className="border-white/[0.15] bg-white/[0.05] hover:bg-white/[0.10] text-white px-8 py-6 rounded-xl text-[13px] font-bold transition-all backdrop-blur-sm">
                 Free Consultation
               </Button>

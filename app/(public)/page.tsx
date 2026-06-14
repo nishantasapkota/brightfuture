@@ -18,16 +18,16 @@ import { createPageMetadata } from "@/lib/seo"
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Study Abroad Consultancy in Nepal | Admissions, Visa and Test Prep | Optimus Global",
+  title: "Study Abroad Consultancy in Nepal | Admissions, Visa and Test Prep | Bright Future Edu",
   description:
-    "Optimus Global helps students in Nepal with study abroad counselling, university applications, visa guidance, and IELTS, PTE, and Duolingo preparation.",
+    "Bright Future Edu helps students in Nepal with study abroad counselling, university applications, visa guidance, and IELTS, PTE, and Duolingo preparation.",
   path: "/",
   images: [
     {
       url: "/banner.jpeg",
       width: 1200,
       height: 630,
-      alt: "Optimus Global study abroad consultancy in Nepal",
+      alt: "Bright Future Edu study abroad consultancy in Nepal",
     },
   ],
 })

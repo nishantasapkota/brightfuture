@@ -1029,3 +1029,82 @@ export async function upsertPageContent(slug: string, content: Record<string, an
     { upsert: true }
   )
 }
+
+// ─── Success Images ───────────────────────────────────────────────
+
+export interface SuccessImage {
+  _id?: ObjectId
+  title: string
+  description?: string
+  imageUrl: string
+  category?: string
+  order: number
+  status: "active" | "inactive"
+  createdAt: Date
+  updatedAt: Date
+}
+
+export async function getSuccessImages(limit = 100, skip = 0, search = "") {
+  const db = await getDatabase()
+  const query = search
+    ? {
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { description: { $regex: search, $options: "i" } },
+          { category: { $regex: search, $options: "i" } },
+        ],
+      }
+    : {}
+  const images = await db
+    .collection<SuccessImage>("success_images")
+    .find(query)
+    .sort({ order: 1, createdAt: -1 })
+    .limit(limit)
+    .skip(skip)
+    .toArray()
+  return images
+}
+
+export async function getSuccessImagesCount(search = "") {
+  const db = await getDatabase()
+  const query = search
+    ? {
+        $or: [
+          { title: { $regex: search, $options: "i" } },
+          { description: { $regex: search, $options: "i" } },
+          { category: { $regex: search, $options: "i" } },
+        ],
+      }
+    : {}
+  return await db.collection<SuccessImage>("success_images").countDocuments(query)
+}
+
+export async function getSuccessImageById(id: string) {
+  const db = await getDatabase()
+  return await db.collection<SuccessImage>("success_images").findOne({ _id: new ObjectId(id) })
+}
+
+export async function createSuccessImage(
+  data: Omit<SuccessImage, "_id" | "createdAt" | "updatedAt">
+) {
+  const db = await getDatabase()
+  const result = await db.collection<SuccessImage>("success_images").insertOne({
+    ...data,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  })
+  return result
+}
+
+export async function updateSuccessImage(id: string, data: Partial<SuccessImage>) {
+  const db = await getDatabase()
+  const safeData = stripImmutableFields({ ...data } as any)
+  return await db
+    .collection<SuccessImage>("success_images")
+    .updateOne({ _id: new ObjectId(id) }, { $set: { ...safeData, updatedAt: new Date() } })
+}
+
+export async function deleteSuccessImage(id: string) {
+  const db = await getDatabase()
+  return await db.collection<SuccessImage>("success_images").deleteOne({ _id: new ObjectId(id) })
+}

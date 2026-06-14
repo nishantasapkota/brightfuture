@@ -10,7 +10,7 @@ export async function Footer() {
   const offices = normalizeBusinessOffices(details);
   const phones = details?.phones?.filter(Boolean) ?? [];
 
-  const businessName = details?.name || "Optimus Global";
+  const businessName = details?.name || "Bright Future Edu";
   const firstName = businessName.split(" ")[0];
 
   const exploreLinks = [
@@ -24,7 +24,6 @@ export async function Footer() {
   ];
 
   const studentLinks = [
-    { label: "Online Consultation", href: "/online-consultation" },
     { label: "Online Application", href: "/online-application" },
     { label: "Student Counseling", href: "/student-counseling" },
     { label: "Success Stories", href: "/success-stories" },

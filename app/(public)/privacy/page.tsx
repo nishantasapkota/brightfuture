@@ -25,7 +25,7 @@ export default async function PrivacyPage() {
         description={content.hero.description}
         breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]}
         badge={content.hero.badge}
-        heroImage={{ src: "/page-headers/global-advisor.png", alt: "Optimus Global advisor for privacy" }}
+        heroImage={{ src: "/page-headers/global-advisor.png", alt: "Bright Future Edu advisor for privacy" }}
       />
       <section className="py-20 md:py-24 bg-white">
         <div

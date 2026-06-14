@@ -19,7 +19,7 @@ export async function GET(_request: Request, { params }: BlogOpenGraphImageConte
   const { slug } = await params
   const blog = await getBlogBySlug(slug)
 
-  const title = truncateText(cleanText(blog?.title, "Optimus Global Insights"), 92)
+  const title = truncateText(cleanText(blog?.title, "Bright Future Edu Insights"), 92)
   const description = truncateText(buildSeoDescription(blog?.excerpt, blog?.content), 150)
   const featuredImage = blog?.featuredImage ? absoluteUrl(blog.featuredImage) : null
   const tags = blog?.tags?.slice(0, 3) ?? ["Study Abroad", "Education", "Guidance"]

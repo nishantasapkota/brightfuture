@@ -69,7 +69,7 @@ export default async function DestinationDetailPage({ params }: DestinationPageP
               ))}
             </div>
             <div className="flex flex-wrap gap-4">
-              <Link href="/online-consultation">
+              <Link href="/contact">
                 <Button className="h-11 rounded-xl bg-red-600 px-6 text-[13px] font-bold text-white hover:bg-red-500 shadow-lg shadow-red-600/10">Book Consultation</Button>
               </Link>
               <Link href="/contact" className="inline-flex items-center text-sm font-bold text-red-600 hover:text-red-700 transition-colors group">

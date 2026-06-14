@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
         const { cloudName, apiKey, apiSecret } = getCloudinaryConfig()
         const timestamp = Math.floor(Date.now() / 1000).toString()
-        const folder = process.env.CLOUDINARY_DOCUMENT_FOLDER || "optimus/documents"
+        const folder = process.env.CLOUDINARY_DOCUMENT_FOLDER || "brightfuture/documents"
         const signature = createCloudinarySignature({ folder, timestamp }, apiSecret)
 
         const uploadForm = new FormData()

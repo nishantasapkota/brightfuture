@@ -55,7 +55,7 @@ export default async function FounderPage() {
         breadcrumbItems={[{ label: "Founder" }]}
         heroImage={{
           src: "/page-headers/uk-student-contact.png",
-          alt: "Student representing Optimus Global leadership vision",
+          alt: "Student representing Bright Future Edu leadership vision",
         }}
       />
       <FounderSpotlight founder={content.founder} />

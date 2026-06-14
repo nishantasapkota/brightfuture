@@ -65,7 +65,7 @@ export default function OnlineConsultationPage() {
                     <ShieldCheck className="w-4 h-4 text-red-600" />
                     Verified Expertise
                   </h4>
-                  <p className="text-slate-500 text-sm font-medium">Optimus Global consultations are conducted by certified professionals with a minimum of 8 years in international academic affairs.</p>
+                  <p className="text-slate-500 text-sm font-medium">Bright Future Edu consultations are conducted by certified professionals with a minimum of 8 years in international academic affairs.</p>
                 </div>
               </div>
             </motion.div>
@@ -88,7 +88,7 @@ export default function OnlineConsultationPage() {
                     <Zap className="w-5 h-5" />
                   </div>
                   <div>
-                    <h5 className="text-white font-bold text-[11px] uppercase tracking-widest">Optimus Global Education</h5>
+                    <h5 className="text-white font-bold text-[11px] uppercase tracking-widest">Bright Future Edu Education</h5>
                     <p className="text-white/60 font-medium text-xs">Real-time Global Connectivity</p>
                   </div>
                 </div>

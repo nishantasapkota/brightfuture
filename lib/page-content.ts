@@ -216,10 +216,10 @@ export const homeDefaultContent: HomePageContent = {
     ],
   },
   consultancy: {
-    eyebrow: "About Optimus",
+    eyebrow: "About Bright Future Edu",
     title: "We Open Doors to Global Education",
     description:
-      "From picking the right course to landing your visa \u2014 Optimus Global handles the heavy lifting. Founded by students who\u2019ve walked the same path, we bring honesty, hustle, and results.",
+      "From picking the right course to landing your visa \u2014 Bright Future Edu handles the heavy lifting. Founded by students who\u2019ve walked the same path, we bring honesty, hustle, and results.",
     stats: [
       { value: "98%", label: "Visa Success" },
       { value: "7+", label: "Years Experience" },
@@ -278,7 +278,7 @@ export const homeDefaultContent: HomePageContent = {
     titlePrefix: "Real Students,",
     titleHighlight: "Real Results",
     description:
-      "Hear from students who turned their study-abroad dreams into reality with Optimus Global.",
+      "Hear from students who turned their study-abroad dreams into reality with Bright Future Edu.",
   },
   contact: {
     eyebrow: "Get in Touch",
@@ -305,7 +305,7 @@ export const termsDefaultContent: LegalPageContent = {
   },
   body: `
     <h2>1. Acceptance of Terms</h2>
-    <p>By accessing or using Optimus Global services, you agree to these Terms &amp; Conditions. If you do not agree, please discontinue use of our website and services.</p>
+    <p>By accessing or using Bright Future Edu services, you agree to these Terms &amp; Conditions. If you do not agree, please discontinue use of our website and services.</p>
     <h2>2. Services</h2>
     <p>We provide education counseling, admissions support, and related services. Service availability may vary by country, program, or partner institution.</p>
     <h2>3. User Responsibilities</h2>
@@ -353,7 +353,7 @@ export const aboutDefaultContent: AboutPageContent = {
     titlePrimary: "Building Connections,",
     titleAccent: "Creating Impact",
     description:
-      "Optimus Global Now offers accommodation services. 100% FREE Education Counselling and Application Processing. We bridge the gap between your aspirations and world-class educational opportunities.",
+      "Bright Future Edu offers accommodation services. 100% FREE Education Counselling and Application Processing. We bridge the gap between your aspirations and world-class educational opportunities.",
     tags: ["100% Free Counselling", "Accommodation Support", "Application Processing"],
     promiseTitle: "Our Promise",
     promiseText: "We bridge the gap between your aspirations and world-class educational opportunities.",
@@ -369,7 +369,7 @@ export const aboutDefaultContent: AboutPageContent = {
     ],
   },
   video: {
-    eyebrow: "Inside Optimus",
+    eyebrow: "Inside Bright Future Edu",
     title: "A closer look at how we guide students.",
   },
   mission: {
@@ -399,27 +399,26 @@ export const aboutDefaultContent: AboutPageContent = {
 
 export const founderDefaultContent: FounderPageContent = {
   seo: {
-    title: "Ashim Sharma Mainali | Founder of Optimus Global",
+    title: "Rajan Thapa | Founder of Bright Future Edu",
     description:
-      "Learn about Ashim Sharma Mainali, CEO and Founder of Optimus Global Education Consultancy Pvt. Ltd., and his journey supporting Nepalese students abroad.",
+      "Learn about Rajan Thapa, Founder and Director of Bright Future Edu Education Consultancy, and his mission to empower Nepalese students globally.",
   },
   hero: {
     badge: "Founder Story",
-    title: "Meet the founder behind Optimus Global.",
+    title: "The vision behind Bright Future Edu.",
     description:
-      "A student-first journey that grew into an education consultancy helping Nepalese students navigate admissions, scholarships, visas, and career planning.",
+      "What started as a personal dream to study abroad grew into a mission to help every Nepalese student access global education with confidence and clarity.",
   },
   founder: {
     eyebrow: "Meet the Founder",
-    name: "Ashim Sharma Mainali",
-    role: "CEO & Founder - Optimus Global Education Consultancy Pvt. Ltd.",
+    name: "Rajan Thapa",
+    role: "Founder & Director - Bright Future Edu Education Consultancy",
     paragraphs: [
-      "Ashim started his journey at a young age after facing the same difficulties countless Nepali students encounter while researching foreign universities. What began as a student-focused mobile app evolved into a full-fledged consultancy that has helped hundreds of students pursue international education.",
-      "A mentor, entrepreneur, and student counselor, Ashim brings 7+ years of expertise across admissions, scholarships, visas, and career planning.",
+      "Rajan Thapa founded Bright Future Edu after experiencing the challenges of studying abroad firsthand. Having navigated complex application processes, visa requirements, and scholarship searches, he realized how many talented Nepalese students miss out due to lack of proper guidance.",
+      "With over 5 years of experience in international education consulting, Rajan has helped 200+ students secure admissions to top universities across the UK, Australia, Canada, and the USA. His approach combines personalized mentorship with hands-on support throughout the entire journey.",
     ],
-    highlight: "7+ years of expertise",
-    quote:
-      "We don't just send students abroad - we help create globally educated individuals who can one day transform Nepal.",
+    highlight: "5+ years of expertise",
+    quote: "Every student deserves a fair chance to compete globally — we're here to make that chance real.",
   },
 }
 

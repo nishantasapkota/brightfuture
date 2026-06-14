@@ -153,7 +153,7 @@ export default function EventPage() {
                       <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/50">Location</p>
                       <p className="mt-1 flex items-center gap-2 text-sm font-semibold">
                         <MapPin className="h-4 w-4" />
-                        {event.location || "Optimus Global Head Office"}
+                        {event.location || "Bright Future Edu Head Office"}
                       </p>
                     </div>
                   </div>

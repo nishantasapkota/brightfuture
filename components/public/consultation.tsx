@@ -7,7 +7,7 @@ import { GraduationCap, Sparkles, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export function Consultation() {
-  const [businessName, setBusinessName] = useState("Optimus Global")
+  const [businessName, setBusinessName] = useState("Bright Future Edu")
 
   useEffect(() => {
     fetch("/api/business-details")

@@ -60,14 +60,14 @@ const navigation = [
     icon: Users,
   },
   {
-    name: "Appointments",
-    href: "/admin/appointments",
-    icon: Calendar,
-  },
-  {
     name: "Testimonials",
     href: "/admin/testimonials",
     icon: FileText,
+  },
+  {
+    name: "Success Images",
+    href: "/admin/success-images",
+    icon: ImageIcon,
   },
   {
     name: "Media Library",
@@ -118,7 +118,7 @@ export function AdminSidebar() {
             <span className="text-base font-bold text-white">A</span>
           </div>
           <div className="leading-tight">
-            <p className="text-sm uppercase tracking-[0.3em] text-white/60">Optimus</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-white/60">Bright Future</p>
             <span className="text-lg font-semibold text-white">Admin Panel</span>
           </div>
         </Link>

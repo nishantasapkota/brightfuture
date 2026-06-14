@@ -1,8 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { motion, useReducedMotion } from "framer-motion"
-import { Users, BookOpen, FileCheck, ChevronDown, Sparkles, CheckCircle2, ArrowRight, Award, Globe, Clock } from "lucide-react"
+import { Users, BookOpen, Sparkles, CheckCircle2, ArrowRight, Award, Globe, Clock } from "lucide-react"
 import { homeDefaultContent, type HomePageContent } from "@/lib/page-content"
 
 const MotionDiv = ({ children, className, ...props }: any) => {
@@ -125,7 +124,7 @@ export function ConsultancySection({ content }: { content?: ConsultancyContent }
           </div>
         </MotionDiv>
 
-        {/* Bottom: Highlights + Form in asymmetric two-column */}
+        {/* Bottom: Highlights + CTA in asymmetric two-column */}
         <div className="mt-20 grid items-start gap-16 lg:grid-cols-12">
           {/* Left: Value propositions */}
           <MotionDiv
@@ -170,7 +169,7 @@ export function ConsultancySection({ content }: { content?: ConsultancyContent }
             </div>
           </MotionDiv>
 
-          {/* Right: Premium form card */}
+          {/* Right: CTA Card instead of form */}
           <MotionDiv
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -178,98 +177,52 @@ export function ConsultancySection({ content }: { content?: ConsultancyContent }
             viewport={{ once: true }}
             className="lg:col-span-7"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-slate-100 bg-white p-8 shadow-xl shadow-slate-900/[0.06] md:p-10">
-              {/* Top gradient accent line */}
-              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-500 via-rose-400 to-red-500" />
+            <div className="relative overflow-hidden rounded-3xl border border-slate-100 bg-slate-950 p-10 md:p-12 shadow-2xl shadow-slate-900/20">
+              {/* Background glow */}
+              <div className="absolute top-0 right-0 h-[300px] w-[300px] rounded-full bg-red-600/10 blur-[100px]" />
+              <div className="absolute bottom-0 left-0 h-[200px] w-[200px] rounded-full bg-rose-500/5 blur-[80px]" />
 
-              <div className="flex items-center gap-3 mb-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
-                  <BookOpen className="h-5 w-5" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/15 text-red-400">
+                    <BookOpen className="h-5 w-5" />
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-widest text-red-400">
+                    {section.eyebrow}
+                  </span>
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-slate-900">{section.formTitle}</h3>
+
+                <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                  Ready to begin your study abroad journey?
+                </h3>
+
+                <p className="mt-4 text-base font-medium text-white/50 leading-relaxed max-w-md">
+                  Our expert consultants are here to guide you every step of the way. Reach out today and take the first step.
+                </p>
+
+                <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <a
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-8 py-4 text-sm font-bold text-white hover:bg-red-500 transition-colors shadow-lg shadow-red-600/20"
+                  >
+                    Contact Us
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="/online-application"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-8 py-4 text-sm font-bold text-white hover:bg-white/10 transition-colors"
+                  >
+                    Apply Online
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center gap-x-6 gap-y-2">
+                  <span className="text-xs text-white/40 font-medium">Trusted by 6,000+ students</span>
+                  <span className="text-xs text-white/40 font-medium">98% visa success rate</span>
+                  <span className="text-xs text-white/40 font-medium">700+ university partners</span>
                 </div>
               </div>
-
-              <p className="mt-2 mb-8 font-medium text-slate-500">
-                {section.formDescription}
-              </p>
-
-              <form className="space-y-4" aria-label="Consultation form">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <label htmlFor="consult-name" className="text-sm font-semibold text-slate-700">Full Name</label>
-                    <input
-                      id="consult-name"
-                      name="name"
-                      type="text"
-                      autoComplete="name"
-                      placeholder="Your Name"
-                      className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-red-200 focus:bg-white focus:ring-2 focus:ring-red-500/10"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="consult-email" className="text-sm font-semibold text-slate-700">Email Address</label>
-                    <input
-                      id="consult-email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="Your Email"
-                      spellCheck={false}
-                      className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-red-200 focus:bg-white focus:ring-2 focus:ring-red-500/10"
-                    />
-                  </div>
-                </div>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <label htmlFor="consult-phone" className="text-sm font-semibold text-slate-700">Phone Number</label>
-                    <input
-                      id="consult-phone"
-                      name="phone"
-                      type="tel"
-                      autoComplete="tel"
-                      inputMode="tel"
-                      placeholder="Phone"
-                      className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-red-200 focus:bg-white focus:ring-2 focus:ring-red-500/10"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="consult-subject" className="text-sm font-semibold text-slate-700">Choose Subject</label>
-                    <div className="relative">
-                      <select
-                        id="consult-subject"
-                        name="subject"
-                        autoComplete="off"
-                        className="w-full appearance-none rounded-2xl border border-slate-100 bg-slate-50 px-5 py-3.5 pr-10 text-sm text-slate-900 outline-none transition-all focus:border-red-200 focus:bg-white focus:ring-2 focus:ring-red-500/10"
-                        style={{ colorScheme: "light" }}
-                      >
-                        <option value="">Select Subject…</option>
-                        <option value="visa">Visa Consultation</option>
-                        <option value="admissions">Admissions</option>
-                        <option value="other">Other</option>
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="consult-message" className="text-sm font-semibold text-slate-700">Message</label>
-                  <textarea
-                    id="consult-message"
-                    name="message"
-                    rows={4}
-                    placeholder="Your Message…"
-                    className="w-full resize-none rounded-2xl border border-slate-100 bg-slate-50 px-5 py-3.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-red-200 focus:bg-white focus:ring-2 focus:ring-red-500/10"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="mt-2 w-full rounded-2xl bg-gradient-to-r from-red-600 to-rose-500 py-6 text-lg font-bold text-white shadow-xl shadow-red-600/15 transition-all hover:shadow-red-600/25"
-                >
-                  {section.formButtonLabel}
-                </Button>
-              </form>
             </div>
           </MotionDiv>
         </div>

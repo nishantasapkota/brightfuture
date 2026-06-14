@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 
-export const siteName = "Optimus Global"
-export const productionSiteUrl = "https://www.optimusglobaledu.com"
+export const siteName = "Bright Future Edu"
+export const productionSiteUrl = "https://www.brightfutureedu.com.np"
 export const defaultSeoDescription =
-  "Expert education consulting insights, university updates, scholarship guidance, and study abroad resources from Optimus Global."
+  "Expert education consulting insights, university updates, scholarship guidance, and study abroad resources from Bright Future Edu."
 
 export function getSiteUrl() {
   const rawUrl =

@@ -53,7 +53,7 @@ export default async function DestinationsPage() {
                 Popular Destinations for International Students
               </h2>
             </div>
-            <Link href="/online-consultation">
+            <Link href="/contact">
               <Button className="h-11 rounded-xl bg-slate-900 px-6 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-slate-800">
                 Talk To Counsellor <ArrowRight className="ml-2 h-4 w-4" />
               </Button>

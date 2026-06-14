@@ -7,6 +7,7 @@ import { Play, Target, Gem, Eye } from "lucide-react"
 import { PageHero } from "@/components/public/page-hero"
 import { CtaJourney } from "@/components/public/cta-journey"
 import { FounderSpotlight } from "@/components/public/founder-spotlight"
+import { Features } from "@/components/ui/features"
 import { aboutDefaultContent, founderDefaultContent, mergeAboutContent, mergeFounderContent } from "@/lib/page-content"
 
 export default function AboutUsPage() {
@@ -62,189 +63,223 @@ export default function AboutUsPage() {
         }}
       />
 
-      {/* Our Story — editorial dark band */}
-      <section className="relative overflow-hidden bg-slate-950 py-24 md:py-32 text-white">
-        <div className="absolute inset-0 opacity-[0.03] [background-image:radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:24px_24px]" />
+      {/* Building Connections Section — demo inspired */}
+      <section className="relative overflow-hidden bg-white py-20 md:py-28">
+        {/* decorative blob */}
+        <div className="absolute -left-20 top-10 -z-10 h-[400px] w-[400px] rounded-full bg-red-100/40 blur-[100px]" />
+
+        <div className="container relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="max-w-3xl"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full bg-red-50 border border-red-100 px-4 py-1.5 mb-6">
+              <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-red-600">
+                {content.whoWeAre.eyebrow}
+              </span>
+            </span>
+            <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
+              {content.whoWeAre.titlePrimary} <span className="text-red-600">{content.whoWeAre.titleAccent}</span>
+            </h2>
+            <p className="mt-6 text-lg text-slate-600 leading-relaxed">
+              {content.whoWeAre.description}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 mt-10 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="md:col-span-2"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
+                <Image src="/destinations/australia.png" alt="Australia" fill className="object-cover hover:scale-105 transition duration-500" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="md:col-span-1 space-y-6"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                <Image src="/destinations/canada.png" alt="Canada" fill className="object-cover hover:-translate-y-0.5 transition duration-300" />
+              </div>
+
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-slate-400">
+                  {content.whoWeAre.promiseTitle}
+                </p>
+                <p className="mt-2 text-xl font-medium text-slate-800 leading-snug">
+                  {content.whoWeAre.promiseText}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {content.whoWeAre.tags.map((tag: string, index: number) => (
+                    <span
+                      key={index}
+                      className="text-[11px] font-bold uppercase tracking-[0.15em] text-red-600 bg-red-50 px-3 py-1.5 rounded-full border border-red-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Story — centered light editorial */}
+      <section className="relative overflow-hidden bg-slate-50 py-24 md:py-32">
         <div className="container relative z-10">
+          <div className="mx-auto max-w-3xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              <motion.span 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-red-50 px-4 py-1.5 mb-6"
+              >
+                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-red-600">
+                  {content.story.eyebrow}
+                </span>
+              </motion.span>
+              <h2 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-950 md:text-6xl">
+                {content.story.title}
+              </h2>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: 80 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="mx-auto mt-8 h-1.5 rounded-full bg-red-600"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="mx-auto mt-10 max-w-xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-slate-400">
+                {content.story.focusLabel}
+              </p>
+              <p className="mt-3 text-lg font-bold leading-snug text-slate-900 md:text-xl">
+                {content.story.focusText}
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.15,
+                    delayChildren: 0.3,
+                  },
+                },
+              }}
+              className="mt-12 space-y-6 text-base font-medium leading-relaxed text-slate-500"
+            >
+              {content.story.paragraphs.map((paragraph: string, index: number) => (
+                <motion.p 
+                  key={`story-p-${index}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { 
+                      opacity: 1, 
+                      y: 0,
+                      transition: { duration: 0.5, ease: "easeOut" }
+                    },
+                  }}
+                >
+                  {paragraph}
+                </motion.p>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Video Section - dark split card */}
+      <section className="py-24 bg-slate-950">
+        <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="mx-auto max-w-3xl text-center"
+            className="grid overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-lg lg:grid-cols-2"
           >
-            <span className="inline-block text-[11px] font-bold uppercase tracking-[0.22em] text-red-500 mb-6">
-              {content.story.eyebrow}
-            </span>
-            <h2 className="text-3xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
-              {content.story.title}
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="mx-auto mt-10 inline-flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-sm sm:flex-row"
-          >
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
-              {content.story.focusLabel}
-            </span>
-            <span className="hidden h-4 w-px bg-white/10 sm:block" />
-            <span className="text-base font-semibold text-white/90">
-              {content.story.focusText}
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="mx-auto mt-16 max-w-3xl space-y-8 text-center text-base font-medium leading-relaxed text-white/60 md:text-lg"
-          >
-            {content.story.paragraphs.map((paragraph: string, index: number) => (
-              <p key={`story-p-${index}`}>{paragraph}</p>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Building Connections Section */}
-      <section className="relative overflow-hidden bg-white py-20 md:py-28">
-        <div className="container relative">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-stretch">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true }}
-              className="border-y border-slate-200 py-8 lg:col-span-5 lg:flex lg:flex-col lg:justify-between lg:py-10"
-            >
-              <div>
-                <p className="mb-6 w-fit border-l-2 border-red-600 bg-red-50 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-red-600">
-                  {content.whoWeAre.eyebrow}
-                </p>
-                <h2 className="max-w-xl text-3xl font-bold leading-[1.04] tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
-                  {content.whoWeAre.titlePrimary} <span className="text-red-600">{content.whoWeAre.titleAccent}</span>
-                </h2>
-              </div>
-              <p className="mt-8 max-w-xl text-base font-semibold leading-relaxed text-slate-600 md:text-lg">
-                {content.whoWeAre.description}
-              </p>
-              <div className="mt-10 grid gap-2 sm:grid-cols-2">
-                {content.whoWeAre.tags.map((tag: string, index: number) => (
-                  <span
-                    key={`${tag}-${index}`}
-                    className="border border-slate-200 bg-slate-50 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-600"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              viewport={{ once: true }}
-              className="relative lg:col-span-7"
-            >
-              <div className="grid min-h-[560px] gap-4 md:grid-cols-[0.72fr_1fr]">
-                <div className="flex flex-col gap-4">
-                  <div className="relative min-h-[260px] flex-1 overflow-hidden rounded-t-[4rem]">
-                    <Image src="/destinations/germany.png" alt="Germany" fill className="object-cover" />
-                  </div>
-                  <div className="bg-slate-950 p-6 text-white">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/45">{content.whoWeAre.promiseTitle}</p>
-                    <p className="mt-3 text-sm font-semibold leading-relaxed text-white/90">{content.whoWeAre.promiseText}</p>
-                  </div>
-                </div>
-                <div className="grid gap-4">
-                  <div className="relative min-h-[340px] overflow-hidden">
-                    <Image src="/destinations/australia.png" alt="Australia" fill className="object-cover" />
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-[1fr_0.72fr]">
-                    <div className="relative min-h-[180px] overflow-hidden">
-                      <Image src="/destinations/canada.png" alt="Canada" fill className="object-cover" />
-                    </div>
-                    <div className="flex items-end bg-red-600 p-5 text-white">
-                      <p className="text-sm font-bold leading-snug">
-                        {content.whoWeAre.titlePrimary}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Video/Image Hero Section */}
-      <section className="py-24 bg-slate-900 text-white">
-        <div className="container">
-          <div className="relative h-[440px] md:h-[520px] w-full overflow-hidden rounded-3xl border border-white/5">
-            <Image
-              src="/professional-team-meeting.png"
-              alt="Team Working"
-              fill
-              className="object-cover brightness-50 scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/40 to-transparent" />
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-lg px-10">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-semibold">{content.video.eyebrow}</p>
-                <h3 className="mt-4 text-2xl md:text-3xl font-bold text-white leading-tight">
-                  {content.video.title}
-                </h3>
-              </div>
-            </div>
-            <div className="absolute bottom-10 right-10">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-red-600 shadow-xl relative z-10"
-              >
-                <Play className="w-6 h-6 fill-current" />
-              </motion.button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Values Vision */}
-      <section className="py-24 bg-white">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {content.mission.items.map((item: any, idx: number) => {
-              const Icon = [Target, Gem, Eye][idx] ?? Target
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group relative overflow-hidden rounded-2xl border border-slate-100 bg-white p-8 transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
+            <div className="flex flex-col justify-center p-8 md:p-12 lg:p-16">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 border border-white/10 px-3 py-1 mb-6">
+                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-red-400">
+                  {content.video.eyebrow}
+                </span>
+              </span>
+              <h3 className="max-w-md text-2xl font-bold leading-tight text-white md:text-3xl">
+                {content.video.title}
+              </h3>
+              <div className="mt-8 flex items-center gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-lg"
                 >
-                  <div className="flex flex-col gap-5">
-                    <div className="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center group-hover:bg-red-600 transition-colors">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                      <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
+                  <Play className="h-5 w-5 fill-current" />
+                </motion.button>
+                <span className="text-sm font-semibold text-white/60">
+                  Watch our story
+                </span>
+              </div>
+            </div>
+            <div className="relative min-h-[280px] lg:min-h-[380px]">
+              <Image
+                src="/professional-team-meeting.png"
+                alt="Team Working"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
+
+      {/* Mission Values Vision — interactive features */}
+      <Features
+        eyebrow="Our Foundation"
+        heading="Mission, Values & Vision"
+        features={content.mission.items.map((item: any, idx: number) => {
+          const Icon = [Target, Gem, Eye][idx] ?? Target
+          return {
+            id: idx + 1,
+            icon: Icon,
+            title: item.title,
+            description: item.description,
+            image: ["/destinations/australia.png", "/destinations/canada.png", "/destinations/germany.png"][idx] ?? "/destinations/australia.png",
+          }
+        })}
+        progressGradientLight="bg-gradient-to-r from-red-500 to-red-600"
+      />
 
       <FounderSpotlight founder={founderContent.founder} />
 

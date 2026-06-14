@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
+import { CircularTestimonials } from "@/components/ui/circular-testimonials"
 import { motion, useReducedMotion } from "framer-motion"
 import { Quote } from "lucide-react"
 import { homeDefaultContent, type HomePageContent } from "@/lib/page-content"
@@ -110,8 +110,24 @@ function TestimonialsContent({ content }: { content?: HomePageContent["testimoni
           </MotionDiv>
         </div>
 
-        <div className="relative mx-auto mt-16 max-w-6xl">
-          <AnimatedTestimonials testimonials={formattedTestimonials} autoplay={true} />
+        <div className="relative mx-auto mt-16 flex justify-center">
+          <CircularTestimonials
+            testimonials={formattedTestimonials}
+            autoplay={true}
+            colors={{
+              name: "#f7f7ff",
+              designation: "#e1e1e1",
+              testimony: "#f1f1f7",
+              arrowBackground: "#0582CA",
+              arrowForeground: "#141414",
+              arrowHoverBackground: "#f7f7ff",
+            }}
+            fontSizes={{
+              name: "28px",
+              designation: "20px",
+              quote: "20px",
+            }}
+          />
         </div>
       </div>
     </section>

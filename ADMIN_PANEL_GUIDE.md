@@ -1,6 +1,6 @@
-# Admin Panel Guide - Optimus Global
+# Admin Panel Guide - Bright Future Edu
 
-This document outlines the available user roles and the core features of the Optimus Global Admin Panel.
+This document outlines the available user roles and the core features of the Bright Future Edu Admin Panel.
 
 ## 👥 User Roles
 

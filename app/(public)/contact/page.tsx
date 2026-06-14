@@ -1,6 +1,4 @@
-"use client"
-
-import { Contact } from "@/components/public/contact"
+import { ContactPageContent } from "@/components/public/contact-page"
 import { PageHero } from "@/components/public/page-hero"
 
 export default function ContactPage() {
@@ -25,7 +23,7 @@ export default function ContactPage() {
         }}
       />
 
-      <Contact />
+      <ContactPageContent />
     </div>
   )
 }

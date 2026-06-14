@@ -6,6 +6,19 @@ export function middleware(request: NextRequest) {
   const userSession = request.cookies.get("user_session")
   const isLoginPage = request.nextUrl.pathname === "/login"
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin")
+  const isOnlineConsultation = request.nextUrl.pathname === "/online-consultation"
+
+  const isAdminAppointments = request.nextUrl.pathname.startsWith("/admin/appointments")
+
+  // Block /admin/appointments route (hide from admin, preserve files for future)
+  if (isAdminAppointments) {
+    return NextResponse.redirect(new URL("/admin", request.url))
+  }
+
+  // Redirect /online-consultation to /contact
+  if (isOnlineConsultation) {
+    return NextResponse.redirect(new URL("/contact", request.url))
+  }
 
   // Redirect to login if accessing admin routes without session
   if (isAdminRoute && !session && !userSession) {
@@ -21,5 +34,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login"],
+  matcher: ["/admin/:path*", "/login", "/online-consultation"],
 }

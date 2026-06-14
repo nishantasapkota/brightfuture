@@ -56,7 +56,7 @@ export function HomePopup({ initialEvent }: HomePopupProps) {
     title: "Global Education Expo 2025",
     description: "Meet top UK university representatives and explore scholarship opportunities for the upcoming intake.",
     date: "Coming Soon",
-    location: "Optimus Global Head Office",
+    location: "Bright Future Edu Head Office",
     image: "/professional-team-meeting.png",
     slug: "global-expo-2025"
   }
@@ -126,7 +126,7 @@ export function HomePopup({ initialEvent }: HomePopupProps) {
                   <p className="text-[11px] uppercase tracking-[0.16em] text-white/70">Location</p>
                   <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-white">
                     <MapPin className="h-4 w-4" />
-                    {displayEvent.location || "Optimus Global Head Office"}
+                    {displayEvent.location || "Bright Future Edu Head Office"}
                   </p>
                 </div>
               </div>

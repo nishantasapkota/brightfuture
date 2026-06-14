@@ -25,7 +25,7 @@ export default async function TermsAndConditionsPage() {
         description={content.hero.description}
         breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Terms & Conditions" }]}
         badge={content.hero.badge}
-        heroImage={{ src: "/page-headers/global-advisor.png", alt: "Optimus Global advisor" }}
+        heroImage={{ src: "/page-headers/global-advisor.png", alt: "Bright Future Edu advisor" }}
       />
       <section className="py-20 md:py-24 bg-white">
         <div

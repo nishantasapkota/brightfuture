@@ -1,7 +1,6 @@
 import Link from "next/link"
 import {
   BookOpen,
-  CalendarClock,
   FileText,
   GraduationCap,
   Handshake,
@@ -292,7 +291,7 @@ function RecentList({
 
 export default async function AdminDashboard() {
   const { totals, recent, statuses } = await getDashboardData()
-  const pendingWork = totals.pendingAppointments + totals.pendingCounseling + totals.pendingApplications
+  const pendingWork = totals.pendingCounseling + totals.pendingApplications
 
   return (
     <div className="space-y-8">
@@ -309,14 +308,7 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          title="Appointments"
-          value={totals.totalAppointments}
-          description={`${totals.pendingAppointments} pending review`}
-          icon={CalendarClock}
-          href="/admin/appointments"
-        />
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <StatCard
           title="Counselling Forms"
           value={totals.totalCounseling}
@@ -383,7 +375,6 @@ export default async function AdminDashboard() {
           title="Lead Sources"
           description="Volume across enquiry and application channels"
           items={[
-            { label: "Appointments", value: totals.totalAppointments, href: "/admin/appointments" },
             { label: "Counselling Forms", value: totals.totalCounseling, href: "/admin/student-counseling" },
             { label: "Online Applications", value: totals.totalApplications, href: "/admin/online-application" },
           ]}
@@ -401,19 +392,12 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-3">
-        <StatusBreakdown title="Appointment Status" items={statuses.appointments} />
+      <div className="grid gap-4 xl:grid-cols-2">
         <StatusBreakdown title="Counselling Status" items={statuses.counseling} />
         <StatusBreakdown title="Application Status" items={statuses.applications} />
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-3">
-        <RecentList
-          title="Latest Appointments"
-          description="Newest appointment requests"
-          href="/admin/appointments"
-          items={recent.appointments}
-        />
+      <div className="grid gap-4 xl:grid-cols-2">
         <RecentList
           title="Latest Counselling"
           description="Newest counselling submissions"

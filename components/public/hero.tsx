@@ -55,7 +55,7 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
           </p>
 
           <div className="flex flex-wrap gap-3 pt-1">
-            <Link href="/online-consultation">
+            <Link href="/contact">
               <Button className="bg-red-600 hover:bg-red-500 text-white px-7 py-6 rounded-xl text-[13px] font-bold tracking-wide shadow-lg shadow-red-600/10 group transition-all duration-300">
                 {hero.ctaLabel}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />

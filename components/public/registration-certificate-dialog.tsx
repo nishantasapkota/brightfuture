@@ -40,7 +40,7 @@ export function RegistrationCertificateDialog() {
         <div className="relative mx-auto aspect-[1080/1350] w-full max-w-2xl overflow-hidden rounded-md bg-white">
           <Image
             src="/registration-certificate.png"
-            alt="Optimus Global registered consultancy certificate"
+            alt="Bright Future Edu registered consultancy certificate"
             fill
             sizes="(min-width: 1024px) 672px, calc(100vw - 2rem)"
             className="object-contain"
