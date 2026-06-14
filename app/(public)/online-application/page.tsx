@@ -249,7 +249,7 @@ export default function OnlineApplicationPage() {
         }}
       />
 
-      <section className="relative -mt-8 pb-24">
+      <section className="mt-12 pb-24">
         <div className="container max-w-5xl">
           {/* Step indicator chips */}
           <div className="mb-6 flex items-center justify-center gap-2">

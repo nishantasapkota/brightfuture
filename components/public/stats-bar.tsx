@@ -39,13 +39,14 @@ export function StatsBar({ content }: { content?: StatsContent }) {
   const stats = content?.items ?? homeDefaultContent.statsBar.items
 
   return (
-    <div className="container relative z-20 -mt-16 md:-mt-20">
-      <MotionDiv
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="grid grid-cols-2 gap-6 rounded-3xl border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-900/10 md:grid-cols-4 md:gap-4 md:p-10"
-      >
+    <div className="relative z-20 bg-white pb-10 pt-0 md:pb-12">
+      <div className="container">
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="-mt-20 grid grid-cols-2 gap-6 rounded-3xl border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-900/10 md:-mt-24 md:grid-cols-4 md:gap-4 md:p-10"
+        >
         {stats.map((stat, index) => {
           const Icon = statIcons[index] ?? Users
           return (
@@ -59,7 +60,8 @@ export function StatsBar({ content }: { content?: StatsContent }) {
             </div>
           </div>
         )})}
-      </MotionDiv>
+        </MotionDiv>
+      </div>
     </div>
   )
 }

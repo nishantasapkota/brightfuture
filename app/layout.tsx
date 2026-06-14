@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   description: defaultSeoDescription,
   applicationName: siteName,
   generator: siteName,
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
   other: {
     "theme-color": "#ffffff",
     "color-scheme": "light dark",
