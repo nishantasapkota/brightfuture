@@ -103,14 +103,8 @@ export default async function ServicesPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {services.map((service) => {
-                const pexelsImageMap: Record<string, string> = {
-                  "university-admissions": "https://images.pexels.com/photos/207684/pexels-photo-207684.jpeg?auto=compress&cs=tinysrgb&w=800",
-                  "visa-documentation": "https://images.pexels.com/photos/1181622/pexels-photo-1181622.jpeg?auto=compress&cs=tinysrgb&w=800",
-                  "test-preparation": "https://images.pexels.com/photos/6325984/pexels-photo-6325984.jpeg?auto=compress&cs=tinysrgb&w=800",
-                  "pre-post-departure": "https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&w=800",
-                }
                 const fallbackImage = "https://images.pexels.com/photos/2678468/pexels-photo-2678468.jpeg?auto=compress&cs=tinysrgb&w=800"
-                const imageSrc = pexelsImageMap[service.slug] || service.icon || fallbackImage
+                const imageSrc = service.image || service.icon || fallbackImage
                 return (
                 <Link
                   key={service.slug}

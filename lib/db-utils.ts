@@ -153,6 +153,7 @@ export interface Service {
   category: string
   features: string[]
   icon?: string
+  image?: string
   createdAt: Date
   updatedAt: Date
 }

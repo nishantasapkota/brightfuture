@@ -23,6 +23,8 @@ interface ServiceDialogProps {
 
 export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDialogProps) {
   const [mediaPickerOpen, setMediaPickerOpen] = useState(false)
+  const [imagePickerOpen, setImagePickerOpen] = useState(false)
+  const [pickerTarget, setPickerTarget] = useState<"icon" | "image">("icon")
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,6 +37,7 @@ export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDi
     category: "",
     features: "",
     icon: "",
+    image: "",
   })
 
   useEffect(() => {
@@ -50,6 +53,7 @@ export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDi
         category: service.category,
         features: service.features?.join(", ") || "",
         icon: service.icon || "",
+        image: service.image || "",
       })
     } else {
       setFormData({
@@ -63,6 +67,7 @@ export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDi
         category: "",
         features: "",
         icon: "",
+        image: "",
       })
     }
   }, [service, open])
@@ -189,7 +194,7 @@ export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDi
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="icon">Icon/Image</Label>
+            <Label htmlFor="icon">Icon (small, for home page)</Label>
             <div className="flex gap-2">
               <Input
                 id="icon"
@@ -197,16 +202,41 @@ export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDi
                 onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
                 placeholder="https://example.com/icon.svg"
               />
-              <Button type="button" variant="outline" onClick={() => setMediaPickerOpen(true)}>
+              <Button type="button" variant="outline" onClick={() => { setPickerTarget("icon"); setMediaPickerOpen(true) }}>
                 <ImageIcon className="h-4 w-4 mr-2" />
                 Browse
               </Button>
             </div>
             {formData.icon && (
-              <div className="mt-2 relative w-24 h-24 rounded-lg overflow-hidden border">
+              <div className="mt-2 relative w-16 h-16 rounded-lg overflow-hidden border">
                 <img
                   src={formData.icon || "/placeholder.svg"}
                   alt="Icon preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="image">Service Image (for services page card)</Label>
+            <div className="flex gap-2">
+              <Input
+                id="image"
+                value={formData.image}
+                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                placeholder="https://example.com/service-image.jpg"
+              />
+              <Button type="button" variant="outline" onClick={() => { setPickerTarget("image"); setImagePickerOpen(true) }}>
+                <ImageIcon className="h-4 w-4 mr-2" />
+                Browse
+              </Button>
+            </div>
+            {formData.image && (
+              <div className="mt-2 relative w-full aspect-[16/10] rounded-lg overflow-hidden border max-w-xs">
+                <img
+                  src={formData.image || "/placeholder.svg"}
+                  alt="Service image preview"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -227,6 +257,13 @@ export function ServiceDialog({ open, onOpenChange, service, onSave }: ServiceDi
         onOpenChange={setMediaPickerOpen}
         onSelect={(url) => setFormData({ ...formData, icon: url })}
         currentImage={formData.icon}
+      />
+
+      <MediaPickerDialog
+        open={imagePickerOpen}
+        onOpenChange={setImagePickerOpen}
+        onSelect={(url) => setFormData({ ...formData, image: url })}
+        currentImage={formData.image}
       />
     </Dialog>
   )
