@@ -8,6 +8,7 @@ import { CourseDialog } from "@/components/course-dialog"
 import { Plus, Search } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import type { Course } from "@/lib/db-utils"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([])
@@ -16,6 +17,8 @@ export default function CoursesPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
   const [loading, setLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -81,10 +84,15 @@ export default function CoursesPage() {
   }
 
   const handleDelete = async (courseId: string) => {
-    if (!confirm("Are you sure you want to delete this course?")) return
+    setPendingDeleteId(courseId)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
 
     try {
-      const response = await fetch(`/api/courses/${courseId}`, {
+      const response = await fetch(`/api/courses/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -103,6 +111,8 @@ export default function CoursesPage() {
         description: "Failed to delete course",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -153,6 +163,16 @@ export default function CoursesPage() {
       <CoursesTable courses={filteredCourses} onEdit={handleEdit} onDelete={handleDelete} />
 
       <CourseDialog open={dialogOpen} onOpenChange={setDialogOpen} course={selectedCourse} onSave={handleSave} />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Course"
+        description="Are you sure you want to delete this course? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

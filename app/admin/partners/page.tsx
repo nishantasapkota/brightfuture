@@ -13,6 +13,7 @@ import {
 import { toast } from "sonner"
 import { Loader2, Plus, Trash2, Globe, ImageIcon, Link as LinkIcon } from "lucide-react"
 import { MediaPickerDialog } from "@/components/media-picker-dialog"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 import Image from "next/image"
 
 export default function PartnersPage() {
@@ -20,6 +21,8 @@ export default function PartnersPage() {
   const [partners, setPartners] = useState<any[]>([])
   const [adding, setAdding] = useState(false)
   const [mediaPickerOpen, setMediaPickerOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   
   const [newPartner, setNewPartner] = useState({
     name: "",
@@ -71,10 +74,15 @@ export default function PartnersPage() {
     }
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this partner?")) return
+  const handleDelete = (id: string) => {
+    setPendingDeleteId(id)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
     try {
-      const res = await fetch(`/api/partners?id=${id}`, { method: "DELETE" })
+      const res = await fetch(`/api/partners?id=${pendingDeleteId}`, { method: "DELETE" })
       if (res.ok) {
         toast.success("Partner deleted")
         fetchPartners()
@@ -83,6 +91,8 @@ export default function PartnersPage() {
       }
     } catch (error) {
       toast.error("An error occurred")
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -212,6 +222,16 @@ export default function PartnersPage() {
         onOpenChange={setMediaPickerOpen}
         onSelect={(url) => setNewPartner({ ...newPartner, logo: url })}
         currentImage={newPartner.logo}
+      />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Partner"
+        description="Are you sure you want to delete this partner? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </div>
   )

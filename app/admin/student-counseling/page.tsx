@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Trash2, Eye } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 interface StudentCounseling {
   _id: string
@@ -28,6 +29,8 @@ export default function StudentCounselingAdminPage() {
   const { toast } = useToast()
   const [counselings, setCounselings] = useState<StudentCounseling[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchCounselings()
@@ -51,11 +54,16 @@ export default function StudentCounselingAdminPage() {
     }
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this submission?")) return
+  const handleDelete = (submissionId: string) => {
+    setPendingDeleteId(submissionId)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
 
     try {
-      const response = await fetch(`/api/student-counseling/${id}`, {
+      const response = await fetch(`/api/student-counseling/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -74,6 +82,8 @@ export default function StudentCounselingAdminPage() {
         description: "Failed to delete submission",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -171,6 +181,15 @@ export default function StudentCounselingAdminPage() {
           </TableBody>
         </Table>
       </div>
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Submission"
+        description="Are you sure you want to delete this submission? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

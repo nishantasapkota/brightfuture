@@ -13,6 +13,7 @@ import {
 import { toast } from "sonner"
 import { Loader2, Plus, Trash2, ImageIcon, Search } from "lucide-react"
 import { MediaPickerDialog } from "@/components/media-picker-dialog"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 import Image from "next/image"
 
 export default function SuccessImagesPage() {
@@ -21,6 +22,8 @@ export default function SuccessImagesPage() {
   const [adding, setAdding] = useState(false)
   const [mediaPickerOpen, setMediaPickerOpen] = useState(false)
   const [search, setSearch] = useState("")
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
 
   const [newImage, setNewImage] = useState({
     title: "",
@@ -81,10 +84,15 @@ export default function SuccessImagesPage() {
     }
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this image?")) return
+  const handleDelete = (id: string) => {
+    setPendingDeleteId(id)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
     try {
-      const res = await fetch(`/api/success-images?id=${id}`, {
+      const res = await fetch(`/api/success-images?id=${pendingDeleteId}`, {
         method: "DELETE",
       })
       if (res.ok) {
@@ -95,6 +103,8 @@ export default function SuccessImagesPage() {
       }
     } catch (error) {
       toast.error("An error occurred")
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -321,6 +331,15 @@ export default function SuccessImagesPage() {
         onOpenChange={setMediaPickerOpen}
         onSelect={(url) => setNewImage({ ...newImage, imageUrl: url })}
         currentImage={newImage.imageUrl}
+      />
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Image"
+        description="Are you sure you want to delete this image? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </div>
   )

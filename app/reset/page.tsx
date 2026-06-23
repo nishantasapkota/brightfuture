@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { AlertModal } from "@/components/alert-modal";
 
 export default function ResetPage() {
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
   const router = useRouter();
   const [force, setForce] = useState(false);
 
@@ -39,7 +41,7 @@ export default function ResetPage() {
     if (res.ok) {
       router.push("/login");
     } else {
-      alert("Reset failed");
+      setAlertOpen(true);
     }
     setLoading(false);
   };
@@ -87,6 +89,14 @@ export default function ResetPage() {
           {loading ? "Setting..." : "Set password"}
         </Button>
       </form>
+
+      <AlertModal
+        open={alertOpen}
+        onOpenChange={setAlertOpen}
+        title="Reset Failed"
+        description="Something went wrong while setting your new password. Please try again."
+        okLabel="OK"
+      />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { UserDialog } from "@/components/user-dialog";
 import { Plus, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { User } from "@/lib/db-utils";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -17,6 +18,8 @@ export default function UsersPage() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentRole, setCurrentRole] = useState<string | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -97,10 +100,15 @@ export default function UsersPage() {
   };
 
   const handleDelete = async (userId: string) => {
-    if (!confirm("Are you sure you want to delete this user?")) return;
+    setPendingDeleteId(userId);
+    setConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return;
 
     try {
-      const response = await fetch(`/api/users/${userId}`, {
+      const response = await fetch(`/api/users/${pendingDeleteId}`, {
         method: "DELETE",
       });
 
@@ -119,6 +127,8 @@ export default function UsersPage() {
         description: "Failed to delete user",
         variant: "destructive",
       });
+    } finally {
+      setPendingDeleteId(null);
     }
   };
 
@@ -188,6 +198,15 @@ export default function UsersPage() {
         onOpenChange={setDialogOpen}
         user={selectedUser}
         onSave={handleSave}
+      />
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete User"
+        description="Are you sure you want to delete this user? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </div>
   );

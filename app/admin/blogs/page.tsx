@@ -8,6 +8,7 @@ import { BlogDialog } from "@/components/blog-dialog"
 import { Plus, Search } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import type { Blog } from "@/lib/db-utils"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function BlogsPage() {
   const [blogs, setBlogs] = useState<Blog[]>([])
@@ -16,6 +17,8 @@ export default function BlogsPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null)
   const [loading, setLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -81,10 +84,14 @@ export default function BlogsPage() {
   }
 
   const handleDelete = async (blogId: string) => {
-    if (!confirm("Are you sure you want to delete this blog?")) return
+    setPendingDeleteId(blogId)
+    setConfirmOpen(true)
+  }
 
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
     try {
-      const response = await fetch(`/api/blogs/${blogId}`, {
+      const response = await fetch(`/api/blogs/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -103,6 +110,8 @@ export default function BlogsPage() {
         description: "Failed to delete blog",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -153,6 +162,16 @@ export default function BlogsPage() {
       <BlogsTable blogs={filteredBlogs} onEdit={handleEdit} onDelete={handleDelete} />
 
       <BlogDialog open={dialogOpen} onOpenChange={setDialogOpen} blog={selectedBlog} onSave={handleSave} />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Blog"
+        description="Are you sure you want to delete this blog? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

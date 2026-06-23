@@ -8,6 +8,7 @@ import { Search, Filter } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import type { Appointment } from "@/lib/db-utils"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([])
@@ -17,6 +18,8 @@ export default function AppointmentsPage() {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
   const [detailDialogOpen, setDetailDialogOpen] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -124,10 +127,15 @@ export default function AppointmentsPage() {
   }
 
   const handleDelete = async (appointmentId: string) => {
-    if (!confirm("Are you sure you want to delete this appointment?")) return
+    setPendingDeleteId(appointmentId)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
 
     try {
-      const response = await fetch(`/api/appointments/${appointmentId}`, {
+      const response = await fetch(`/api/appointments/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -146,6 +154,8 @@ export default function AppointmentsPage() {
         description: "Failed to delete appointment",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -214,6 +224,16 @@ export default function AppointmentsPage() {
         open={detailDialogOpen}
         onOpenChange={setDetailDialogOpen}
         appointment={selectedAppointment}
+      />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Appointment"
+        description="Are you sure you want to delete this appointment? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </div>
   )

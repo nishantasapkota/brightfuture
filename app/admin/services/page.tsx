@@ -8,6 +8,7 @@ import { ServiceDialog } from "@/components/service-dialog"
 import { Plus, Search } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import type { Service } from "@/lib/db-utils"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([])
@@ -16,6 +17,8 @@ export default function ServicesPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedService, setSelectedService] = useState<Service | null>(null)
   const [loading, setLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -80,11 +83,17 @@ export default function ServicesPage() {
     }
   }
 
-  const handleDelete = async (serviceId: string) => {
-    if (!confirm("Are you sure you want to delete this service?")) return
+  const handleDelete = (serviceId: string) => {
+    setPendingDeleteId(serviceId)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
+    setConfirmOpen(false)
 
     try {
-      const response = await fetch(`/api/services/${serviceId}`, {
+      const response = await fetch(`/api/services/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -103,6 +112,8 @@ export default function ServicesPage() {
         description: "Failed to delete service",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -153,6 +164,16 @@ export default function ServicesPage() {
       <ServicesTable services={filteredServices} onEdit={handleEdit} onDelete={handleDelete} />
 
       <ServiceDialog open={dialogOpen} onOpenChange={setDialogOpen} service={selectedService} onSave={handleSave} />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Service"
+        description="Are you sure you want to delete this service? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

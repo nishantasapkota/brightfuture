@@ -15,10 +15,13 @@ import {
 } from "@/components/ui/table"
 import { toast } from "sonner"
 import type { Testimonial } from "@/lib/db-utils"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function TestimonialsPage() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [loading, setLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchTestimonials()
@@ -39,22 +42,29 @@ export default function TestimonialsPage() {
     }
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this testimonial?")) return
+  const handleDelete = (id: string) => {
+    setPendingDeleteId(id)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
 
     try {
-      const response = await fetch(`/api/testimonials/${id}`, {
+      const response = await fetch(`/api/testimonials/${pendingDeleteId}`, {
         method: "DELETE",
       })
       if (response.ok) {
         toast.success("Testimonial deleted successfully")
-        setTestimonials(testimonials.filter((t) => t._id?.toString() !== id))
+        setTestimonials(testimonials.filter((t) => t._id?.toString() !== pendingDeleteId))
       } else {
         toast.error("Failed to delete testimonial")
       }
     } catch (error) {
       console.error("Error deleting testimonial:", error)
       toast.error("An error occurred while deleting")
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -135,6 +145,15 @@ export default function TestimonialsPage() {
           )}
         </CardContent>
       </Card>
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Testimonial"
+        description="Are you sure you want to delete this testimonial? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

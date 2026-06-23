@@ -20,6 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Trash2, Eye, FileText } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 interface OnlineApplication {
   _id: string
@@ -48,6 +49,8 @@ export default function OnlineApplicationAdminPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [selectedApplication, setSelectedApplication] = useState<OnlineApplication | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchApplications()
@@ -71,11 +74,16 @@ export default function OnlineApplicationAdminPage() {
     }
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this application?")) return
+  const handleDelete = (applicationId: string) => {
+    setPendingDeleteId(applicationId)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
 
     try {
-      const response = await fetch(`/api/online-application/${id}`, {
+      const response = await fetch(`/api/online-application/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -94,6 +102,8 @@ export default function OnlineApplicationAdminPage() {
         description: "Failed to delete application",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -328,6 +338,15 @@ export default function OnlineApplicationAdminPage() {
           )}
         </DialogContent>
       </Dialog>
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Application"
+        description="Are you sure you want to delete this application? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
+      />
     </div>
   )
 }

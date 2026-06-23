@@ -7,6 +7,7 @@ import { DestinationsTable } from "@/components/destinations-table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 import type { Destination } from "@/lib/db-utils"
 
 export default function DestinationsAdminPage() {
@@ -16,6 +17,8 @@ export default function DestinationsAdminPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null)
   const [loading, setLoading] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -82,10 +85,14 @@ export default function DestinationsAdminPage() {
   }
 
   const handleDelete = async (destinationId: string) => {
-    if (!confirm("Are you sure you want to delete this destination?")) return
+    setPendingDeleteId(destinationId)
+    setConfirmOpen(true)
+  }
 
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
     try {
-      const response = await fetch(`/api/destinations/${destinationId}`, {
+      const response = await fetch(`/api/destinations/${pendingDeleteId}`, {
         method: "DELETE",
       })
 
@@ -104,6 +111,8 @@ export default function DestinationsAdminPage() {
         description: "Failed to delete destination",
         variant: "destructive",
       })
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -160,6 +169,16 @@ export default function DestinationsAdminPage() {
         onOpenChange={setDialogOpen}
         destination={selectedDestination}
         onSave={handleSave}
+      />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Destination"
+        description="Are you sure you want to delete this destination? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </div>
   )

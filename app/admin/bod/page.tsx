@@ -7,12 +7,15 @@ import { BODTable } from "@/components/bod-table"
 import { BODDialog } from "@/components/bod-dialog"
 import { Skeleton } from "@/components/ui/skeleton"
 import { toast } from "sonner"
+import { ConfirmDialog } from "@/components/confirm-dialog"
 
 export default function BODAdminPage() {
   const [members, setMembers] = useState([])
   const [loading, setLoading] = useState(true)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedMember, setSelectedMember] = useState(null)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
 
   const fetchMembers = async () => {
     setLoading(true)
@@ -44,17 +47,24 @@ export default function BODAdminPage() {
     setIsDialogOpen(true)
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this member?")) return
+  const handleDelete = (id: string) => {
+    setPendingDeleteId(id)
+    setConfirmOpen(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return
 
     try {
-      const res = await fetch(`/api/admin/bod?id=${id}`, { method: "DELETE" })
+      const res = await fetch(`/api/admin/bod?id=${pendingDeleteId}`, { method: "DELETE" })
       if (res.ok) {
         toast.success("Member deleted")
         fetchMembers()
       }
     } catch (error) {
       toast.error("Failed to delete member")
+    } finally {
+      setPendingDeleteId(null)
     }
   }
 
@@ -89,6 +99,16 @@ export default function BODAdminPage() {
         onOpenChange={setIsDialogOpen} 
         member={selectedMember} 
         onSuccess={fetchMembers} 
+      />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete Member"
+        description="Are you sure you want to delete this member? This action cannot be undone."
+        confirmLabel="Delete"
+        destructive
+        onConfirm={confirmDelete}
       />
     </div>
   )
