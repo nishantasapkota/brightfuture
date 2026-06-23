@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Breadcrumb } from "@/components/public/breadcrumb";
 import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -29,13 +30,26 @@ export function PageHero({
         heroImage ? "min-h-[520px] items-stretch pb-0" : "min-h-[420px] items-center pb-16"
       }`}
     >
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(145deg,#020617_0%,#0a1033_50%,#111827_100%)]" />
+      {heroImage && (
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroImage.src}
+            alt={heroImage.alt}
+            fill
+            className="object-cover"
+            style={{ objectPosition: heroImage.objectPosition || "center" }}
+            priority
+            sizes="100vw"
+          />
+        </div>
+      )}
+
+      <div className="absolute inset-0 z-10">
+        <div className="absolute inset-0 bg-[linear-gradient(145deg,#020617_0%,#0a1033_50%,#111827_100%)] opacity-60" />
         <div className="absolute inset-0 opacity-[0.02] [background-image:radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:24px_24px]" />
         <div className="absolute inset-0 opacity-[0.03] [background-image:linear-gradient(135deg,rgba(255,255,255,0.3)_1px,transparent_1px)] [background-size:30px_30px]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#020617] to-transparent" />
-        <div className="absolute left-0 top-0 h-full w-1/2 bg-[linear-gradient(90deg,rgba(2,6,23,0.95),rgba(2,6,23,0.6),transparent)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.97)_0%,rgba(2,6,23,0.88)_40%,rgba(2,6,23,0.3)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#020617] to-transparent opacity-70" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.60)_0%,rgba(2,6,23,0.35)_45%,rgba(2,6,23,0.20)_100%)]" />
         <div className="absolute top-[20%] right-[15%] w-[500px] h-[500px] rounded-full bg-red-600/6 blur-[150px]" />
         <div className="absolute bottom-[15%] left-[10%] w-[400px] h-[400px] rounded-full bg-blue-600/5 blur-[120px]" />
       </div>

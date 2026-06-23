@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   applicationName: siteName,
   generator: siteName,
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/logo.png",
+    shortcut: "/logo.png",
   },
   other: {
     "theme-color": "#ffffff",
@@ -69,7 +69,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
 
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         {structuredData.map((entry, index) => (

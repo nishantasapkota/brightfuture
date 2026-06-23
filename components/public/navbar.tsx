@@ -74,10 +74,10 @@ export function Navbar({ details, businessName, firstName }: NavbarProps) {
               <Image
                 src={details.logo}
                 alt={businessName}
-                width={140}
-                height={40}
+                width={120}
+                height={36}
                 className={cn(
-                  "object-contain transition-all duration-300",
+                  "object-contain transition-all duration-300 max-h-9 w-auto",
                   isDark && "brightness-0 invert"
                 )}
               />

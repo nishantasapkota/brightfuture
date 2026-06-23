@@ -244,8 +244,8 @@ export default function OnlineApplicationPage() {
         breadcrumbItems={[{ label: "Online Application" }]}
         badge="Guided Application Wizard"
         heroImage={{
-          src: "/page-headers/global-advisor.png",
-          alt: "Global advisor supporting an online application for study destinations",
+          src: "/page-headers/hero-about.jpeg",
+          alt: "Student starting an online study abroad application",
         }}
       />
 

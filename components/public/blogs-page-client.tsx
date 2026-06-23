@@ -63,7 +63,7 @@ export function BlogsPageClient() {
         breadcrumbItems={[{ label: "Knowledge Hub" }]}
         badge="Global Knowledge Hub"
         heroImage={{
-          src: "/page-headers/digital-student.png",
+          src: "/page-headers/hero-gallery.jpeg",
           alt: "Student using digital channels for Bright Future Edu updates",
         }}
       />

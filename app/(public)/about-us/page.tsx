@@ -58,8 +58,8 @@ export default function AboutUsPage() {
         description={content.hero.description}
         breadcrumbItems={[{ label: "About Us" }]}
         heroImage={{
-          src: "/page-headers/student-orange.png",
-          alt: "Smiling international student",
+          src: "/page-headers/hero-about.jpeg",
+          alt: "Smiling international student exploring education opportunities",
         }}
       />
 
@@ -98,7 +98,7 @@ export default function AboutUsPage() {
               className="md:col-span-2"
             >
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
-                <Image src="/destinations/australia.png" alt="Australia" fill className="object-cover hover:scale-105 transition duration-500" />
+                <Image src="https://images.pexels.com/photos/3184434/pexels-photo-3184434.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bright Future Edu team collaboration" fill className="object-cover hover:scale-105 transition duration-500" />
               </div>
             </motion.div>
 
@@ -110,7 +110,7 @@ export default function AboutUsPage() {
               className="md:col-span-1 space-y-6"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                <Image src="/destinations/canada.png" alt="Canada" fill className="object-cover hover:-translate-y-0.5 transition duration-300" />
+                <Image src="https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Graduates celebrating academic success" fill className="object-cover hover:-translate-y-0.5 transition duration-300" />
               </div>
 
               <div>
@@ -254,8 +254,8 @@ export default function AboutUsPage() {
             </div>
             <div className="relative min-h-[280px] lg:min-h-[380px]">
               <Image
-                src="/professional-team-meeting.png"
-                alt="Team Working"
+                src="https://images.pexels.com/photos/2422294/pexels-photo-2422294.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                alt="Bright Future Edu team guiding students"
                 fill
                 className="object-cover"
               />

@@ -18,8 +18,8 @@ export default function ContactPage() {
         breadcrumbItems={[{ label: "Contact Us" }]}
         badge="Global Support Network"
         heroImage={{
-          src: "/page-headers/uk-student-contact.png",
-          alt: "Student in front of the United Kingdom study abroad contact channels",
+          src: "/page-headers/hero-contact.jpeg",
+          alt: "Counsellors connecting with students for study abroad support",
         }}
       />
 

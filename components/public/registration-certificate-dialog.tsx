@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { X } from "lucide-react"
+import Image from "next/image";
+import { X } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 export function RegistrationCertificateDialog() {
   return (
@@ -20,7 +20,7 @@ export function RegistrationCertificateDialog() {
           type="button"
           className="text-left text-white/50 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
         >
-          Registered consultancy. Registration number: 133-2079/080
+          Registered consultancy. Registration number: 1234-2079/088
         </button>
       </DialogTrigger>
       <DialogContent
@@ -34,19 +34,19 @@ export function RegistrationCertificateDialog() {
         <DialogHeader className="px-1 pb-2">
           <DialogTitle>Registered Consultancy Certificate</DialogTitle>
           <DialogDescription className="text-white/60">
-            Registration number: 133-2079/080
+            Registration number: 1234-2079/088
           </DialogDescription>
         </DialogHeader>
         <div className="relative mx-auto aspect-[1080/1350] w-full max-w-2xl overflow-hidden rounded-md bg-white">
-          <Image
+          {/* <Image
             src="/registration-certificate.png"
             alt="Bright Future Edu registered consultancy certificate"
             fill
             sizes="(min-width: 1024px) 672px, calc(100vw - 2rem)"
             className="object-contain"
-          />
+          /> */}
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

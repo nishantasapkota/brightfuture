@@ -21,8 +21,8 @@ export default function CoursesPage() {
         description="Explore academic pathways tailored to your interests, career goals, and global ambitions."
         breadcrumbItems={[{ label: "Courses" }]}
         heroImage={{
-          src: "/page-headers/phone-student.png",
-          alt: "Student speaking by phone about education courses",
+          src: "/page-headers/hero-main.jpeg",
+          alt: "Student exploring academic pathways on a laptop",
         }}
       />
 

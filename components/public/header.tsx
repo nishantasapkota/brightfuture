@@ -6,11 +6,13 @@ export async function Header() {
   const businessName = details?.name || "Bright Future Edu"
   const firstName = businessName.split(" ")[0]
 
+  const logo = details?.logo || "/logo.png"
+
   return (
-    <Navbar 
-      details={JSON.parse(JSON.stringify(details))} 
-      businessName={businessName} 
-      firstName={firstName} 
+    <Navbar
+      details={JSON.parse(JSON.stringify({ ...details, logo }))}
+      businessName={businessName}
+      firstName={firstName}
     />
   )
 }

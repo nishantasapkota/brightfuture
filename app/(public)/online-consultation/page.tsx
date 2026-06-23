@@ -23,7 +23,7 @@ export default function OnlineConsultationPage() {
         description="Connect with our global consultants from anywhere in the world. Expert guidance delivered directly to you."
         breadcrumbItems={[{ label: "Virtual Consultation" }]}
         badge="Global Virtual Connect"
-        heroImage={{ src: "/page-headers/digital-student.png", alt: "Student receiving online consultation" }}
+        heroImage={{ src: "/page-headers/hero-contact.jpeg", alt: "Student receiving online consultation" }}
       />
 
       <section className="py-20 md:py-28">

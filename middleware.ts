@@ -4,15 +4,24 @@ import type { NextRequest } from "next/server"
 export function middleware(request: NextRequest) {
   const session = request.cookies.get("admin_session")
   const userSession = request.cookies.get("user_session")
-  const isLoginPage = request.nextUrl.pathname === "/login"
-  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin")
-  const isOnlineConsultation = request.nextUrl.pathname === "/online-consultation"
 
-  const isAdminAppointments = request.nextUrl.pathname.startsWith("/admin/appointments")
+  const pathname = request.nextUrl.pathname
+
+  const isLoginPage = pathname === "/login"
+  const isAdminRoute = pathname.startsWith("/admin")
+  const isOnlineConsultation = pathname === "/online-consultation"
+
+  const isAdminAppointments = pathname.startsWith("/admin/appointments")
+  const isStudentCounseling = pathname.startsWith("/student-counseling")
 
   // Block /admin/appointments route (hide from admin, preserve files for future)
   if (isAdminAppointments) {
     return NextResponse.redirect(new URL("/admin", request.url))
+  }
+
+  // Hide student counseling feature until Phase 2
+  if (isStudentCounseling) {
+    return new NextResponse("Not Found", { status: 404 })
   }
 
   // Redirect /online-consultation to /contact
@@ -34,5 +43,10 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/login", "/online-consultation"],
+  matcher: [
+    "/admin/:path*",
+    "/login",
+    "/online-consultation",
+    "/student-counseling/:path*",
+  ],
 }

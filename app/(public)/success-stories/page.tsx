@@ -24,7 +24,7 @@ export default async function SuccessStoriesPage() {
         }
         description="Meet students who turned careful planning, strong applications, and steady guidance into admission and study abroad milestones."
         breadcrumbItems={[{ label: "Success Stories" }]}
-        heroImage={{ src: "/page-headers/student-orange.png", alt: "Successful student" }}
+        heroImage={{ src: "/page-headers/hero-gallery.jpeg", alt: "Students celebrating success at global landmarks" }}
       />
 
       {galleryImages.length > 0 && (

@@ -84,7 +84,7 @@ export default function AppointmentPage() {
           { label: "Appointment" },
         ]}
         heroImage={{
-          src: "/page-headers/counseling-session.png",
+          src: "/page-headers/hero-contact.jpeg",
           alt: "Appointment counseling meeting with an education advisor",
         }}
       />

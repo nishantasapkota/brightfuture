@@ -35,8 +35,8 @@ export default async function DestinationsPage() {
         description="Explore active study destination pages managed from the CMS and guide students into country-specific landing pages."
         breadcrumbItems={[{ label: "Destinations" }]}
         heroImage={{
-          src: "/page-headers/destination-cards.png",
-          alt: "Graduate choosing study destinations",
+          src: "/page-headers/hero-destinations.jpeg",
+          alt: "Graduates choosing from popular study destinations worldwide",
         }}
       />
 
