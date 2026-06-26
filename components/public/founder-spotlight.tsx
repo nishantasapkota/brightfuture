@@ -6,7 +6,7 @@ import type { FounderPageContent } from "@/lib/page-content"
 
 export function FounderSpotlight({
   founder,
-  image = "/main.png",
+  image = "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=800",
 }: {
   founder: FounderPageContent["founder"]
   image?: string

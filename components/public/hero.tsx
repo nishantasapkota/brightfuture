@@ -11,7 +11,11 @@ import { homeDefaultContent, type HomePageContent } from "@/lib/page-content";
 const MotionDiv = ({ children, className, ...props }: any) => {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
-  return <motion.div className={className} {...props}>{children}</motion.div>;
+  return (
+    <motion.div className={className} {...props}>
+      {children}
+    </motion.div>
+  );
 };
 
 export function Hero({ content }: { content?: HomePageContent["hero"] }) {
@@ -26,7 +30,10 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
         <div className="absolute inset-0 opacity-[0.02] [background-image:radial-gradient(circle,rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:24px_24px]" />
         <div className="absolute inset-0 opacity-[0.02] [background-image:linear-gradient(135deg,rgba(255,255,255,0.3)_1px,transparent_1px)] [background-size:60px_60px]" />
         <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-blue-600/12 blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[450px] h-[450px] rounded-full bg-red-600/10 blur-[100px] animate-pulse" style={{ animationDelay: "2s" }} />
+        <div
+          className="absolute bottom-[-10%] left-[-5%] w-[450px] h-[450px] rounded-full bg-red-600/10 blur-[100px] animate-pulse"
+          style={{ animationDelay: "2s" }}
+        />
       </div>
 
       <div className="container relative z-10 grid lg:grid-cols-2 gap-12 items-center px-4 md:px-6 py-24 lg:py-20">
@@ -38,7 +45,9 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
         >
           <div className="inline-flex items-center gap-2.5 rounded-full bg-white/[0.05] border border-white/[0.08] px-5 py-2.5">
             <GraduationCap className="w-4 h-4 text-red-400" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">{hero.badge}</span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
+              {hero.badge}
+            </span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-extrabold leading-[1.02] tracking-tight">
@@ -62,7 +71,10 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
               </Button>
             </Link>
             <Link href="/about-us">
-              <Button variant="outline" className="border-white/[0.15] bg-white/[0.06] hover:bg-white/[0.10] text-white px-7 py-6 rounded-xl text-[13px] font-bold transition-all duration-300 backdrop-blur-sm">
+              <Button
+                variant="outline"
+                className="border-white/[0.15] bg-white/[0.06] hover:bg-white/[0.10] text-white px-7 py-6 rounded-xl text-[13px] font-bold transition-all duration-300 backdrop-blur-sm"
+              >
                 Learn More
               </Button>
             </Link>
@@ -90,7 +102,7 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
 
             <div className="absolute inset-10 rounded-3xl bg-white/[0.03] border border-white/[0.06] overflow-hidden flex items-center justify-center">
               <Image
-                src="/main1.png"
+                src="/brighthead.png"
                 alt="Student with flags"
                 fill
                 className="object-contain p-6"
@@ -110,8 +122,12 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
                   <Globe className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-white">{leftStat.value}</p>
-                  <p className="text-[10px] text-white/35 font-medium uppercase tracking-wider">{leftStat.labelBottom}</p>
+                  <p className="text-xl font-bold text-white">
+                    {leftStat.value}
+                  </p>
+                  <p className="text-[10px] text-white/35 font-medium uppercase tracking-wider">
+                    {leftStat.labelBottom}
+                  </p>
                 </div>
               </MotionDiv>
             )}
@@ -127,8 +143,12 @@ export function Hero({ content }: { content?: HomePageContent["hero"] }) {
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-white">{rightStat.value}</p>
-                  <p className="text-[10px] text-white/35 font-medium uppercase tracking-wider">{rightStat.labelBottom}</p>
+                  <p className="text-xl font-bold text-white">
+                    {rightStat.value}
+                  </p>
+                  <p className="text-[10px] text-white/35 font-medium uppercase tracking-wider">
+                    {rightStat.labelBottom}
+                  </p>
                 </div>
               </MotionDiv>
             )}

@@ -206,7 +206,7 @@ async function seedData() {
       {
         name: "Rajan Thapa",
         role: "Founder & Director",
-        image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
+        image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1000",
         level: 1,
         socials: { mail: "rajan@brightfutureedu.com.np", linkedin: "https://linkedin.com" },
         createdAt: new Date(),
