@@ -6,7 +6,7 @@ import type { FounderPageContent } from "@/lib/page-content";
 
 export function FounderSpotlight({
   founder,
-  image = "https://res.cloudinary.com/ddpjgl0pw/image/upload/v1782797753/brightfuture/media/e6l1fnlj2wpdugvjdura.jpg",
+  image = "https://res.cloudinary.com/ddpjgl0pw/image/upload/v1782797859/brightfuture/media/sm3gw1e2hehyalkq6n8l.jpg",
 }: {
   founder: FounderPageContent["founder"];
   image?: string;
