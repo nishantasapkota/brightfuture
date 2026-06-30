@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { motion, useReducedMotion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Mail,
   MapPin,
@@ -16,55 +16,55 @@ import {
   Instagram,
   Facebook,
   Linkedin,
-} from "lucide-react"
-import { homeDefaultContent, type HomePageContent } from "@/lib/page-content"
+} from "lucide-react";
+import { homeDefaultContent, type HomePageContent } from "@/lib/page-content";
 
 const MotionDiv = ({ children, className, ...props }: any) => {
-  const reduce = useReducedMotion()
-  if (reduce) return <div className={className}>{children}</div>
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div className={className} {...props}>
       {children}
     </motion.div>
-  )
-}
+  );
+};
 
-type ContactContent = HomePageContent["contact"]
+type ContactContent = HomePageContent["contact"];
 
 export function ContactPageContent({ content }: { content?: ContactContent }) {
-  const section = content ?? homeDefaultContent.contact
-  const [offices, setOffices] = useState<any[]>([])
-  const [submitted, setSubmitted] = useState(false)
+  const section = content ?? homeDefaultContent.contact;
+  const [offices, setOffices] = useState<any[]>([]);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     async function fetchBusinessDetails() {
       try {
-        const res = await fetch("/api/business-details")
-        const data = await res.json()
+        const res = await fetch("/api/business-details");
+        const data = await res.json();
         if (data.details?.offices) {
-          setOffices(data.details.offices)
+          setOffices(data.details.offices);
         } else if (data.details?.address) {
-          setOffices([{ label: "Head Office", address: data.details.address }])
+          setOffices([{ label: "Head Office", address: data.details.address }]);
         } else {
-          setOffices([])
+          setOffices([]);
         }
       } catch {
-        setOffices([])
+        setOffices([]);
       }
     }
-    fetchBusinessDetails()
-  }, [])
+    fetchBusinessDetails();
+  }, []);
 
-  const allPhones = offices.flatMap((o: any) => o.phones || [])
-  const allEmails = offices.flatMap((o: any) => o.emails || [])
-  const uniquePhones = Array.from(new Set(allPhones)).slice(0, 2)
-  const uniqueEmails = Array.from(new Set(allEmails)).slice(0, 2)
+  const allPhones = offices.flatMap((o: any) => o.phones || []);
+  const allEmails = offices.flatMap((o: any) => o.emails || []);
+  const uniquePhones = Array.from(new Set(allPhones)).slice(0, 2);
+  const uniqueEmails = Array.from(new Set(allEmails)).slice(0, 2);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 4000)
-  }
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 4000);
+  };
 
   return (
     <div className="flex flex-col">
@@ -180,8 +180,7 @@ export function ContactPageContent({ content }: { content?: ContactContent }) {
                 Response Time
               </h3>
               <p className="text-base font-semibold text-slate-600">
-                Within{" "}
-                <span className="text-red-600 font-bold">24 hours</span>
+                Within <span className="text-red-600 font-bold">24 hours</span>
               </p>
               <p className="mt-1 text-xs text-slate-400 font-medium">
                 Sun - Fri, 9:00 AM - 6:00 PM
@@ -427,7 +426,7 @@ export function ContactPageContent({ content }: { content?: ContactContent }) {
                   </div>
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-slate-100">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.234!2d85.324!3d27.717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDQzJzAxLjIiTiA4NcKwMTknMjYuNCJF!5e0!3m2!1sen!2snp!4v1609459200000!5m2!1sen!2snp"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.4092210627423!2d85.332968!3d27.7046487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190005c426fd%3A0x42b14b4268c5e707!2sBright%20Future%20Education%20Consultant!5e0!3m2!1sen!2snp!4v1782797988709!5m2!1sen!2snp"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
@@ -452,9 +451,7 @@ export function ContactPageContent({ content }: { content?: ContactContent }) {
                 viewport={{ once: true }}
               >
                 <div className="rounded-2xl border border-slate-100 bg-slate-950 p-6 md:p-8 text-white">
-                  <h3 className="text-lg font-bold mb-2">
-                    Connect With Us
-                  </h3>
+                  <h3 className="text-lg font-bold mb-2">Connect With Us</h3>
                   <p className="text-sm text-white/60 mb-6 font-medium">
                     Follow us for daily tips, success stories, and updates.
                   </p>
@@ -489,8 +486,7 @@ export function ContactPageContent({ content }: { content?: ContactContent }) {
         <div className="container relative z-10">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
-              Ready to Study{" "}
-              <span className="text-red-500">Abroad?</span>
+              Ready to Study <span className="text-red-500">Abroad?</span>
             </h2>
             <p className="text-base md:text-lg text-white/50 font-medium mb-8 max-w-xl mx-auto">
               Book a free consultation and let our experts guide your academic
@@ -507,5 +503,5 @@ export function ContactPageContent({ content }: { content?: ContactContent }) {
         </div>
       </section>
     </div>
-  )
+  );
 }
